@@ -3,7 +3,7 @@ var nomeFoto;
 var uriImmagine;
 function  aggiungiCliente(rnome,rcognome,remail)
 {
-    alert("ok");
+    alert("ok"+rnome);
     // Salvare anche nel db sql lite
     var   d = new Date();
     var  n = d.getTime();

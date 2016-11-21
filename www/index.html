@@ -67,7 +67,7 @@
                     <li><a href="#home" data-icon="home"  data-transition="slide">Home</a></li>
                     <li ><a href="#aggiungiCliente" data-icon="plus"   data-transition="slide">Cliente</a></li>
                     <li ><a href="#testo" data-icon="action"  data-transition="slide">Social</a></li>
-                     <li ><a href="#database" data-icon="action"  data-transition="slide">Prova</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -89,11 +89,11 @@
            <div>
             <form>
                 <label for="nome">Nome:</label>
-                <input data-clear-btn="true" name="nome" id="nomeM" value="" type="text" readonly="true">
+                <input data-clear-btn="true" name="nomeM" id="nomeM" value="" type="text" readonly="true">
                 <label for="cognome">Cognome:</label>
-                <input data-clear-btn="true" name="cognome" id="cognomeM" value="" type="text" readonly="true">
+                <input data-clear-btn="true" name="cognomeM" id="cognomeM" value="" type="text" readonly="true">
                 <label for="email">E-mail:</label>
-                <input data-clear-btn="true" name="email" id="emailM" value="" type="text" readonly="true">
+                <input data-clear-btn="true" name="emailM" id="emailM" value="" type="text" readonly="true">
             </form>  
         </div>
         <hr/>
@@ -116,7 +116,13 @@
                 </ul>
             </div>
         </div>
+        <div data-role="popup" id="popCancella" class="ui-content" style="max-width:280px">
+             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left">Close</a>
+            <p>Cliente Cancellato con successo</p>
+          </div>
+          <a href="#popCancella" data-rel="popup" style="display:none;" id="popDue" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Left close button</a>
     </div>
+      </div>
     <div data-role="page" id="database">
         <div data-role="header" class="header" data-position="fixed">
             <h1 id="app-title">Database</h1>
@@ -137,6 +143,8 @@
             </div>
         </div>
     </div>
+   
+      
       <div data-role="page" id="aggiungiCliente">
         <div data-role="header" class="header" data-position="fixed">
             <h1 id="app-title">Nuovo cliente</h1>
@@ -224,22 +232,18 @@
     <script type="text/javascript" src="js/dati.js"></script>
     <script type="text/javascript" src="js/nuovoCliente.js"></script>
     <script type="text/javascript" src="js/social.js"></script>
-    <script type="text/javascript" src="js/modificaCancella.js"></script>
+     <script type="text/javascript" src="js/modificaCancella.js"></script>
+   
      
    
      
     <script type="text/javascript">
         app.initialize();
         var db;
-    //-------------------------------
-    //  GESTIONE PAGINA CAMERA 
-    //-------------------------------
-  //  $('#camera').click(apriCamera);
-  //  $('#rubrica').click(contatto);
-   // $('#db').click(aproDatabase);
+   
   
    $(document).on("pageinit", "#home", function () {
-      alert("ok");
+      
        $("#lista_datiJson").html("");
        caricoDatiServerSalvoInDb ();
     });
@@ -303,7 +307,8 @@ $('#ico_cameraSocial').click(function(){
 });
 
 $('#cancella').click(function(){
-   alert("Funzione cancella");
+  // alert("Funzione cancella");
+   cancellaCliente ();
 });
 
 $('#modifica').click(function(){
@@ -434,7 +439,7 @@ $(document).on("pagebeforeshow", "#testo", function () {
      //  apriFile();
       });
 */
- $('#fotoSharing').click(condividiFoto);
+// $('#fotoSharing').click(condividiFoto);
 // $('#Server').click(apriCameraServer);
 /* $('#creaDbSync').click(aproDatabase);
 /* $(document).on("pagebeforeshow", "#testo", function () {

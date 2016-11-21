@@ -76,12 +76,31 @@ function selezionaFotoModifica ()
         db.transaction(
             // Metodo di chiamata asincrona
             function(tx) {
-                tx.executeSql("DELETE FROM clienti WHERE id=?",[idCliente]);
+                tx.executeSql("DELETE FROM clienti WHERE identificativo=?",[idCliente]);
             },
             onDbError,
             function(){
-                alert("Cancellazione effettua");
+                //alert("Cancellazione effettua");
                
             }
         )
+        // Cancello dal server
+        $.ajax({
+        type: "POST",
+		data: {id:''+idCliente+''},
+		url: 'http://www.trovoperte.com/admin/CS_cancellaCliente.aspx',
+        dataType: 'html',
+		success: function(data){
+			//console.log(data);
+            $.mobile.navigate( "#home" );    
+             $(document).on("pagebeforehide", "#modificaCancella", function () {
+                  $("#popDue").click();
+                  
+             });
+		},
+		error: function(){
+			//console.log(data);
+			alert('Errrore');
+		}
+	});
  }
