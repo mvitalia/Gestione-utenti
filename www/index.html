@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+   <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css"/>
+     <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css"/>
+     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <title>Hello World</title>
+</head>
+
+<body>
+     <div data-role="page" id="home" >
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="app-title">Home</h1>
+        </div>
+        <div role="main" class="ui-content">
+            
+                  <ul>
+                    <li> I dati sono scaricati dal server se c'è connessione </li>
+                    <li> I dati sono caricati dal db interno se non c'è la connessione </li>
+                 </ul>
+                <hr>
+         <div class="ui-grid-solo ui-responsive">
+            <ul data-role="listview" id="lista_datiJson" data-split-theme="a" data-split-icon="delete" data-inset="true"></ul>
+        </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <!--Tab bar jquery mobile-->
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="#home" data-icon="home"  data-transition="slide">Home</a></li>
+                    <li ><a href="#aggiungiCliente" data-icon="plus"   data-transition="slide">Cliente</a></li>
+                    <li ><a href="#testo" data-icon="action"  data-transition="slide">Social</a></li>
+                     <li ><a href="#database" data-icon="action"  data-transition="slide">Prova</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+      <div data-role="page" id="modificaCancella" >
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="app-title">Modifiche</h1>
+        </div>
+        <div role="main" class="ui-content">
+               <h3>Dati cliente </h3>
+                 <div class="wrapper">
+                     <img  src="" witdh="200px" height="200px" id="imgModificaCancella">
+                 </div>
+                   <div id="boxScattaScegliFotoModifica" class="ui-grid-a">
+                <div class="ui-block-a"><button id="ico_cameraModifica" class="ui-btn">Scatta Foto</button></div>
+                <div class="ui-block-b"><button id="ico_libreriaModifica" class="ui-btn">Scegli Foto</button></div>
+                </div>
+                 <hr/>
+           <div>
+            <form>
+                <label for="nome">Nome:</label>
+                <input data-clear-btn="true" name="nome" id="nomeM" value="" type="text" readonly="true">
+                <label for="cognome">Cognome:</label>
+                <input data-clear-btn="true" name="cognome" id="cognomeM" value="" type="text" readonly="true">
+                <label for="email">E-mail:</label>
+                <input data-clear-btn="true" name="email" id="emailM" value="" type="text" readonly="true">
+            </form>  
+        </div>
+        <hr/>
+        <div>
+          <div id="boxModificaCancella" class="ui-grid-a">
+                <div class="ui-block-a"><button id="modifica" class="ui-btn">Modifica</button></div>
+                <div class="ui-block-b"><button id="cancella" class="ui-btn">Cancella</button></div>
+           </div>
+           <div id="boxSalvaModifiche" class="ui-grid-solo">
+               <button id="salvaModifiche" class="ui-btn ">Salva Modifiche</button>
+         </div>
+        </div>
+       <div data-role="footer" data-position="fixed">
+            <!--Tab bar jquery mobile-->
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="#home" data-icon="home"  data-transition="slide">Home</a></li>
+                    <li ><a id="a" href="#aggiungiCliente" data-icon="plus"   data-transition="slide">Cliente</a></li>
+                    <li ><a href="#testo" data-icon="action"  data-transition="slide">Social</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="database">
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="app-title">Database</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <button id="db" data-role="button" data-icon="search">DB</button>
+           <ul data-role="listview" id="lista_dati" data-split-icon="delete" data-split-theme="a"  data-inset="true"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <!--Tab bar jquery mobile-->
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                     <li><a href="#home"  data-transition="slide">Home</a></li>
+                    <li><a href="#salva" data-transition="slide">Salva</a></li>
+                    <li><a href="#database" data-transition="slide">Dati</a></li>
+                    <li><a href="#testo" data-transition="slide">Testo</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+      <div data-role="page" id="aggiungiCliente">
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="app-title">Nuovo cliente</h1>
+        </div>
+          
+        <div role="main" class="ui-content">
+        
+          <h3>Informazioni cliente </h3>
+          <div id="landmark-1" data-landmark-id="1">
+          <form id="sincro">
+            <label for="nome">Nome:</label>
+                <input data-clear-btn="true" name="nome" id="nome" value="" type="text">
+            <label for="cognome">Cognome:</label>
+                <input data-clear-btn="true" name="cognome" id="cognome" value="" type="text">
+            <label for="email">E-mail:</label>
+                <input data-clear-btn="true" name="email" id="email" value="" type="text">
+          </form>
+              
+          </div>
+           <!-- <input name="foto" id="foto" type="text"> -->
+         <div data-role="popup" id="popupCloseLeft" class="ui-content" style="max-width:280px">
+             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left">Close</a>
+            <p>Upload effettuato con Successo</p>
+          </div>
+          <a href="#popupCloseLeft" data-rel="popup" style="display:none;" id="pop" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Left close button</a>
+          <div class="wrapper">
+              <img  src="img/fotoDefaultUtente.png" witdh="200px" height="200px" id="noteimg">
+        </div>
+          <div class="ui-grid-a">
+            <div class="ui-block-a"><button id="ico_camera" class="ui-btn ui-icon-camera ui-btn-icon-left">Scatta Foto</button></div>
+            <div class="ui-block-b"><button id="ico_libreria" class="ui-btn ui-icon-eye ui-btn-icon-left">Scegli Foto</button></div>
+          </div>
+        </div>
+      <div id="status">
+             
+       </div>
+        <div>
+            <button type="submit" class="ui-btn" id="salvaContatto">Salva Contatto</button>
+         
+        </div>
+         <div data-role="footer" data-position="fixed">
+            <!--Tab bar jquery mobile-->
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="#home" data-icon="home"  data-transition="slide">Home</a></li>
+                    <li ><a href="#aggiungiCliente" data-icon="plus"   data-transition="slide">Cliente</a></li>
+                    <li ><a href="#testo" data-icon="action"  data-transition="slide">Social</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="testo">
+        <div data-role="header" class="header" data-position="fixed">
+            <h1 id="app-title">Vista Dettaglio</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3>Dettaglio Cliente</h3>
+              <div class="wrapper">
+              <img  src="img/fotoDefaultUtente.png" witdh="200px" height="200px" id="imgSocial">
+              </div>
+                <div class="ui-grid-a">
+                <div class="ui-block-a"><button id="ico_cameraSocial" class="ui-btn ui-icon-camera ui-btn-icon-left">Scatta Foto</button></div>
+                <div class="ui-block-b"><button id="ico_libreriaSocial" class="ui-btn ui-icon-eye ui-btn-icon-left">Scegli Foto</button></div>
+                </div>
+            <div>
+                <button type="submit" class="ui-btn" id="btnSocial">Social</button>
+            </div>
+        </div>
+          <div data-role="footer" data-position="fixed">
+            <!--Tab bar jquery mobile-->
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="#home" data-icon="home"  data-transition="slide">Home</a></li>
+                    <li ><a href="#aggiungiCliente" data-icon="plus"   data-transition="slide">Cliente</a></li>
+                    <li ><a href="#testo" data-icon="action"  data-transition="slide">Social</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/platformOverrides.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/dati.js"></script>
+    <script type="text/javascript" src="js/nuovoCliente.js"></script>
+    <script type="text/javascript" src="js/social.js"></script>
+    <script type="text/javascript" src="js/modificaCancella.js"></script>
+     
+   
+     
+    <script type="text/javascript">
+        app.initialize();
+        var db;
+    //-------------------------------
+    //  GESTIONE PAGINA CAMERA 
+    //-------------------------------
+  //  $('#camera').click(apriCamera);
+  //  $('#rubrica').click(contatto);
+   // $('#db').click(aproDatabase);
+  
+   $(document).on("pageinit", "#home", function () {
+      alert("ok");
+       $("#lista_datiJson").html("");
+       caricoDatiServerSalvoInDb ();
+    });
+
+   $(document).on("pagebeforeshow", "#home", function () {
+         $("#lista_datiJson").html("");
+         selezionoDati ();
+    });
+
+     $(document).on("click", ".storage", function () {
+     var id = $(this).parents("li").data("itemid");
+     sessionStorage.setItem('id', id);
+     // alert( sessionStorage.getItem('id'));
+     $.mobile.navigate( "#modificaCancella" );    
+});
+
+ $(document).on("pageshow", "#modificaCancella", function () {
+    //  alert("ok"+ sessionStorage.getItem('id'));
+      caricoCliente ();
+     });
+
+
+ $(document).on("pagebeforeshow", "#aggiungiCliente", function () {
+     var image = document.getElementById('noteimg');
+      image.src = "img/fotoDefaultUtente.png";
+    });
+
+   $('#salvaContatto').click(function(){
+      var nome = $("input:text[name=nome]").val();
+      var cognome = $("input:text[name=cognome]").val();
+      var email = $("input:text[name=email]").val();
+      alert(nome+"-"+cognome+"-"+email);
+      aggiungiCliente(nome,cognome,email);
+	
+      });
+  
+$('#ico_camera').click(function(){
+   apriCamera ();
+});
+
+
+
+$('#ico_cameraModifica').click(function(){
+   apriCameraModifica ();
+});
+
+$('#ico_libreriaModifica').click(function(){
+ selezionaFotoModifica ();
+});
+
+$('#btnSocial').click(function(){
+  apriSocial ();
+});
+
+$('#ico_libreria').click(function(){
+   apriAlbum ();
+});
+
+$('#ico_cameraSocial').click(function(){
+   apriCameraSocial ();
+});
+
+$('#cancella').click(function(){
+   alert("Funzione cancella");
+});
+
+$('#modifica').click(function(){
+    $("#boxScattaScegliFotoModifica").css("display", "block");
+    $("#boxSalvaModifiche").css("display", "block");
+    $("#boxModificaCancella").css("display", "none");
+   alert("Funzione cancella");
+});
+
+//alert($("#switch").val());
+
+/*
+  $(document).on("pagebeforeshow", "#paginaDue", function () {
+        $("#lista_datiJson").html("");
+     });
+  $(document).on("pageshow", "#paginaDue", function () {
+       scambioDati();
+     });
+
+$(document).on("pagebeforeshow", "#testo", function () {
+        $("#dettaglio").html("");
+     });
+ 
+
+/* Passaggio di parametri 
+ 
+  $('#salvaContatto').click(function(){
+    var landmarkID = $(this).parent().attr('data-landmark-id');
+	var postData =$("#sincro").serializeArray();
+	
+    $.ajax({
+        type: "POST",
+		data: {prova:postData},
+		url: 'http://www.trovoperte.com/admin/CS_Sync.aspx',
+        dataType: 'html',
+		success: function(data){
+			//console.log(data);
+			alert('Your comment was successfully added'+data);
+		},
+		error: function(){
+			//console.log(data);
+			alert('There was an error adding your comment');
+		}
+	});
+	
+	return false;
+      });
+   
+     
+  
+  $(document).on("pageinit", "#home", function () {
+     
+    
+            if (checkInternet) {
+            
+                $.getJSON("http://www.trovoperte.com/admin/CS.aspx", function (dati) {
+                    var li_dati = "";
+                    $.each(dati, function (i, name) {
+                        li_dati += "<li> <img src='"+name.icona+"' class='ui-li-thumb'/>" + name.ID + " - " + name.user + "</li>";
+
+                    });
+
+                    $("#lista_datiJson").append(li_dati).promise().done(function () {
+                        $(this).listview("refresh");
+                    });
+                });
+
+
+            } else {
+                alert('No connection');
+            }
+        
+      /*  if(checkInternet){
+          alert("ok");
+           // window.requestFileSystem(window.TEMPORARY, 1024 * 1024, createDir, errorHandler);     
+        }else{
+            
+            //   window.requestFileSystem(window.TEMPORARY, 1024 * 1024, searchDir, errorHandler);
+        }
+        });
+        function checkInternet() {
+            var online = window.navigator.onLine;
+            if (!online) {
+                return false;
+            } else {
+                return true;
+            }
+        }*/
+
+    
+   
+    //-------------------------------
+    //  GESTIONE PAGINA DATABASE
+    //-------------------------------
+
+  /*  $(document).on("pagebeforeshow", "#database", function () {
+        $("#lista_dati").html("");
+        leggoDatabase();
+     });*
+
+    $(document).on("pagecreate", "#database", function () {
+       $(document).on("click", ".deleteItem", function () {
+           var id = $(this).parents("li").data("itemid");
+           var selezione = "#"+id;
+           cancelloRecord(id);
+          $(selezione).remove();
+    });
+    
+    });
+ 
+    
+   
+    //-------------------------------
+    //  GESTIONE PAGINA SALVA DATI
+    //-------------------------------
+    
+    $('#ico_camera').click(apriCamera);
+     // $('#salvaContatto').click();
+      $('#salvaContatto').click(function(){
+        var nome = $("input:text[name=nome]").val();
+        var cognome = $("input:text[name=cognome]").val();
+        var email = $("input:text[name=email]").val();
+       // alert(nome+" - "+cognome+" - "+email);
+        // Richiamo la funzione che aggiunge la riga al db
+        apriFile(nome,cognome,email);
+       // var a =  $('#noteimg').attr("src")
+       // alert(a);
+     //  apriFile();
+      });
+*/
+ $('#fotoSharing').click(condividiFoto);
+// $('#Server').click(apriCameraServer);
+/* $('#creaDbSync').click(aproDatabase);
+/* $(document).on("pagebeforeshow", "#testo", function () {
+         alert("Ok");
+        $("#listaDb").html("");
+        leggoDatabase();
+     });
+*/
+    </script>
+</body>
+
+</html>
